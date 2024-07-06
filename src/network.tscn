@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://dect7vl2irgbq"]
+
+[ext_resource type="Script" path="res://src/network.gd" id="1_abroj"]
+
+[sub_resource type="Theme" id="Theme_lsdjp"]
+default_font_size = 32
+
+[node name="NetworkButtons" type="HFlowContainer"]
+layout_direction = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -65.0
+offset_right = 123.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+script = ExtResource("1_abroj")
+
+[node name="StartServerButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_lsdjp")
+text = "Start Server"
+
+[node name="StartClientButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_lsdjp")
+text = "Start Client"
+
+[node name="SendMessageButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_lsdjp")
+disabled = true
+text = "Send Message"
+
+[connection signal="pressed" from="StartServerButton" to="." method="_on_start_server_button_pressed"]
+[connection signal="pressed" from="StartClientButton" to="." method="_on_start_client_button_pressed"]
+[connection signal="pressed" from="SendMessageButton" to="." method="_on_send_message_button_pressed"]
