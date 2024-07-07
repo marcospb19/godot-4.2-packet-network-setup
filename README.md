@@ -1,22 +1,22 @@
-# Packet server/ setup example
+# `ENet` raw packet server/client example
 
-This is a small example to show how you can create a client-server structure in Godot to handle raw packets.
+A code sample to show how to setup an `ENet` client-server handle raw packets.
 
-It uses `ENet` as the networking protocol, changing to `WebRTC` or `WebSockets` might be easy (or not :skull:).
-
-Here are the properties:
-
-- Clients only talk to the server.
-- Server automatically relays client messages.
-    - Clients only talk to
+- Godot 4.2.
+- Clients can only speak directly to the server.
+- Server broadcasts messages to everyone.
+- Clients receive a signal when other peers connect.
 
 ## Disclaimers:
 
 - Raw packets aren't the recommended way of handling game state.
-    - Unless you have a specific reason to use raw packets, try using these first:
-        - `rpc` (todo link)
-        - `MultiplayerSynchronizer` (todo link)
-        - `MultiplayerSpawner` (todo link)
+    - Unless you have a specific reason to use raw packets, try these first:
+        - [`@rpc`](https://docs.godotengine.org/en/4.2/tutorials/networking/high_level_multiplayer.html#remote-procedure-calls)
+        - [`MultiplayerSynchronizer`](https://docs.godotengine.org/en/stable/classes/class_multiplayersynchronizer.html)
+        - [`MultiplayerSpawner`](https://docs.godotengine.org/en/stable/classes/class_multiplayerspawner.html)
+- No encryption.
+- No authorization.
+- No port forwarding.
 
 ## How to run
 
@@ -41,37 +41,38 @@ Start clicking on buttons and you'll see logs.
 ![image](https://github.com/marcospb19/godot-enet-packet-server-example/assets/38900226/b1d89eb0-05c6-462f-9b8f-fb2beac95b16)
 
 ```ruby
-peer 2000: received connection signal from (peer 1)
-peer 1: received connection signal from (peer 2000)
-peer 3000: received connection signal from (peer 1)
-peer 3000: received connection signal from (peer 2000)
-peer 1: received connection signal from (peer 3000)
-peer 2000: received connection signal from (peer 3000)
-peer 1: received msg from peer 3000 'Hi from 3000'
-peer 2000: received msg from peer 3000 'Hi from 3000'
-peer 3000: received connection signal from (peer 4000)
-peer 1: received connection signal from (peer 4000)
-peer 4000: received connection signal from (peer 1)
-peer 4000: received connection signal from (peer 2000)
-peer 4000: received connection signal from (peer 3000)
-peer 2000: received connection signal from (peer 4000)
-peer 3000: received msg from peer 4000 'Hi from 4000'
-peer 1: received msg from peer 4000 'Hi from 4000'
-peer 2000: received msg from peer 4000 'Hi from 4000'
-peer 3000: received msg from peer 2000 'Hi from 2000'
-peer 1: received msg from peer 2000 'Hi from 2000'
-peer 4000: received msg from peer 2000 'Hi from 2000'
+peer 2000: connected to peer 1
+peer 1   : connected to peer 2000
+peer 3000: connected to peer 1
+peer 3000: connected to peer 2000
+peer 1   : connected to peer 3000
+peer 2000: connected to peer 3000
+peer 1   : received msg from peer 3000: 'Hi from 3000'
+peer 2000: received msg from peer 3000: 'Hi from 3000'
+peer 3000: connected to peer 4000
+peer 1   : connected to peer 4000
+peer 4000: connected to peer 1
+peer 4000: connected to peer 2000
+peer 4000: connected to peer 3000
+peer 2000: connected to peer 4000
+peer 3000: received msg from peer 4000: 'Hi from 4000'
+peer 1   : received msg from peer 4000: 'Hi from 4000'
+peer 2000: received msg from peer 4000: 'Hi from 4000'
+peer 3000: received msg from peer 2000: 'Hi from 2000'
+peer 1   : received msg from peer 2000: 'Hi from 2000'
+peer 4000: received msg from peer 2000: 'Hi from 2000'
 ```
 
 (IDs are random, I edited the above for better readability).
 
 ## More docs?
 
-My original plan is to put some of these into the docs, there are no official docs that put together an example like this.
+My plan is to put some of these into the docs, there are no official docs that put together an example like this.
 
 ## Open questions:
 
 1. Is this, by default, using `ENet`'s reliable mode?
+2. How hard is to change this from `Enet` to `WebRTC` or `WS`?
 
 ## Can I copy this?
 

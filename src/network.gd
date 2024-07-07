@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 # ---------- Setup server or client ----------
 func setup_network(is_server: bool):
@@ -29,12 +29,12 @@ func _on_send_message_button_pressed():
 # ---------- Network signal callbacks ----------
 func received_message_callback(id: int, packet: PackedByteArray):
 	print(
-		"peer %d: received msg from peer %d '%s'"
+		"peer %d: received msg from peer %d: '%s'"
 			% [local_id(), id, packet.get_string_from_utf8()]
 	)
 
 func peer_connected_callback(connected_peer_id: int):
-	print('peer %d: received connection signal from (peer %d)' % [local_id(), connected_peer_id])
+	print('peer %d: connected to peer %d' % [local_id(), connected_peer_id])
 
 # ---------- Utils ----------
 func local_id() -> int:
